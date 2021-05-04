@@ -1,17 +1,29 @@
-const mongodb = require( 'mongodb' )
+/*const mongodb = require( 'mongodb' )
 const mongoClient = mongodb.MongoClient
+const objectId = mongodb.ObjectId => */
+
+const { MongoClient , ObjectId } = require( 'mongodb' )
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
 
-mongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopology: true } , ( error , client ) => {//CALLBACK
+const id = new ObjectId()
+console.log( id )
+console.log( id.id )
+console.log( id.id.length )
+console.log( id.toHexString() )
+console.log( id.toHexString().length )
+console.log( id.getTimestamp() )
+
+MongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopology: true } , ( error , client ) => {//CALLBACK
     if( error ) {
         return console.log( 'Unable to connect to database' );
     }
     const db = client.db( databaseName )
 
     /*db.collection( 'users' ).insertOne({
-        name : 'Eduardo',
+        _id : id,
+        name : 'Pablo',
         age : 25
     } , ( error , result ) => {
         if( error ) {
@@ -36,7 +48,7 @@ mongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopolo
         console.log( result.ops );
     })*/
 
-    db.collection( 'task' ).insertMany([
+    /*db.collection( 'task' ).insertMany([
         {
             description : 'First task',
             completed : true
@@ -54,6 +66,6 @@ mongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopolo
             return console.log( 'Unable to insert tasks!' )
         }
         console.log( result.ops );
-    })
+    })*/
     
 })
