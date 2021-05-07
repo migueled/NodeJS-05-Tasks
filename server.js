@@ -9,7 +9,7 @@ MongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopolo
     }
     const db = client.db( databaseName )
 
-    db.collection( 'users' ).findOne( { _id : new ObjectId( '6090f7fd7c2bfa23f8e34e25' ) } , ( error , data ) => {
+    /*db.collection( 'users' ).findOne( { _id : new ObjectId( '6090f7fd7c2bfa23f8e34e25' ) } , ( error , data ) => {
         if ( error ) { return console.log( 'unable to fetch' ) }
         console.log( data )
     })
@@ -19,5 +19,13 @@ MongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopolo
     }
     db.collection( 'users' ).find( query ).toArray( ( error , users ) => {
         console.log( users )
+    })*/
+
+    db.collection( 'task' ).find().toArray( ( error , data ) => {
+        console.log( data[ data.length -1 ] )
+    })
+
+    db.collection( 'task' ).find( { completed : false } ).toArray( ( error , data ) => {
+        console.log( data ) 
     })
 })
