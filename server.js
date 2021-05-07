@@ -9,8 +9,15 @@ MongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopolo
     }
     const db = client.db( databaseName )
 
-    db.collection('users').findOne( { name : 'Miguel' } , ( error , data ) => {
+    db.collection( 'users' ).findOne( { _id : new ObjectId( '6090f7fd7c2bfa23f8e34e25' ) } , ( error , data ) => {
         if ( error ) { return console.log( 'unable to fetch' ) }
         console.log( data )
+    })
+
+    const query = {
+        age : 25
+    }
+    db.collection( 'users' ).find( query ).toArray( ( error , users ) => {
+        console.log( users )
     })
 })
