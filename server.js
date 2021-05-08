@@ -9,19 +9,19 @@ MongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopolo
     }
     const db = client.db( databaseName )
 
-    const userIdUpdate = {
-        _id : new ObjectId( '60910982c836343270e5192f' )
+    const filterUpdate = {
+        completed : false
     }
     
-    const setUserNewData = {
+    const newCompleted = {
         $set : {
-            name : 'Pablo Olivas'
+            completed : true
         }
     }
 
-    const updatePromise = db.collection( 'users' ).updateOne( userIdUpdate , setUserNewData )
+    db.collection( 'tasks' ).updateMany( filterUpdate , newCompleted )
     .then( ( result ) => {
-        console.log( result )
+        console.log( result.modifiedCount )
     })
     .catch( ( error ) => {
         console.log( error )
