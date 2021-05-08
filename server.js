@@ -15,13 +15,11 @@ MongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopolo
     
     const setUserNewData = {
         $set : {
-            name : 'Pablo Ariel'
+            name : 'Pablo Olivas'
         }
     }
 
     const updatePromise = db.collection( 'users' ).updateOne( userIdUpdate , setUserNewData )
-
-    updatePromise
     .then( ( result ) => {
         console.log( result )
     })
