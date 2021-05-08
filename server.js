@@ -9,21 +9,26 @@ MongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopolo
     }
     const db = client.db( databaseName )
 
-    const filterUpdate = {
-        completed : false
-    }
-    
-    const newCompleted = {
-        $set : {
-            completed : true
-        }
+    /*const deleteUserBy = {
+        age : 25
     }
 
-    db.collection( 'tasks' ).updateMany( filterUpdate , newCompleted )
+    db.collection( 'users' ).deleteMany( deleteUserBy )
     .then( ( result ) => {
-        console.log( result.modifiedCount )
-    })
-    .catch( ( error ) => {
+        console.log( result )
+    }).catch( ( error ) => {
+        console.log( error )
+    })*/
+
+    const deleteTaskBy = {
+        description : 'First task'
+    }
+
+    db.collection( 'tasks' ).deleteOne( deleteTaskBy )
+    .then( ( result ) => {
+        console.log( result )
+    }).catch( ( error ) => {
         console.log( error )
     })
+
 })
