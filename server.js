@@ -9,23 +9,23 @@ MongoClient.connect( connectionURL , { useNewUrlParser : true , useUnifiedTopolo
     }
     const db = client.db( databaseName )
 
-    /*db.collection( 'users' ).findOne( { _id : new ObjectId( '6090f7fd7c2bfa23f8e34e25' ) } , ( error , data ) => {
-        if ( error ) { return console.log( 'unable to fetch' ) }
-        console.log( data )
-    })
-
-    const query = {
-        age : 25
+    const userIdUpdate = {
+        _id : new ObjectId( '60910982c836343270e5192f' )
     }
-    db.collection( 'users' ).find( query ).toArray( ( error , users ) => {
-        console.log( users )
-    })*/
+    
+    const setUserNewData = {
+        $set : {
+            name : 'Pablo Ariel'
+        }
+    }
 
-    db.collection( 'task' ).find().toArray( ( error , data ) => {
-        console.log( data[ data.length -1 ] )
+    const updatePromise = db.collection( 'users' ).updateOne( userIdUpdate , setUserNewData )
+
+    updatePromise
+    .then( ( result ) => {
+        console.log( result )
     })
-
-    db.collection( 'task' ).find( { completed : false } ).toArray( ( error , data ) => {
-        console.log( data ) 
+    .catch( ( error ) => {
+        console.log( error )
     })
 })
