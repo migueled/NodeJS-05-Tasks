@@ -1,4 +1,5 @@
 const mongoose = require( 'mongoose' )
+const validator = require( 'validator' )
 //mongodb://localhost/my_database
 const dataBase = 'mongodb://127.0.0.1:27017/task-manager-api'
 
@@ -14,10 +15,23 @@ mongoose.connect( dataBase , configMongoose )
 const modelUser = {
     name : {
         type : String,
-        required : true
+        required : true,
+        trim : true
+    },
+    email : {
+        type : String,
+        required : true,
+        trim : true,
+        lowercase : true,
+        validate( value ) {
+            if( !validator.isEmail( value) ) {
+                throw new Error ( 'Email is invalid' )
+            }
+        }
     },
     age : {
         type : Number,
+        default : 0,
         validate( value ) {
             if( value < 0 ) {
                 throw new Error( 'Age must be a positive number' )
@@ -29,8 +43,8 @@ const modelUser = {
 const User = mongoose.model( 'User' , modelUser )
 
 const dataMe = {
-    name : 'Eduardo',
-    age : 15
+    name : ' Miguel            ',
+    email : 'MIGUEL@GMAIL.COM'
 }
 
 const me = new User( dataMe )
