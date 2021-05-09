@@ -9,22 +9,28 @@ const configMongoose = {
     useCreateIndex: true
 }
 
-/*const modelUser = {
+mongoose.connect( dataBase , configMongoose )
+
+const modelUser = {
     name : {
-        type : String
+        type : String,
+        required : true
     },
     age : {
-        type : Number
+        type : Number,
+        validate( value ) {
+            if( value < 0 ) {
+                throw new Error( 'Age must be a positive number' )
+            }
+        }
     }
 }
-
-mongoose.connect( dataBase , configMongoose )
 
 const User = mongoose.model( 'User' , modelUser )
 
 const dataMe = {
     name : 'Eduardo',
-    age : '27'
+    age : 15
 }
 
 const me = new User( dataMe )
@@ -34,7 +40,9 @@ me.save()
         console.log( me)
     }).catch( ( error ) => {
         console.log( 'Error : ' , error )
-    })*/
+    })
+    
+    /*mongoose.connect( dataBase , configMongoose )
     
     const modelTasks = {
         description : {
@@ -44,8 +52,6 @@ me.save()
             type : Boolean
         }
     }
-    
-    mongoose.connect( dataBase , configMongoose )
     
     const Tasks = mongoose.model( 'Tasks' , modelTasks )
     
@@ -61,4 +67,4 @@ me.save()
             console.log( createdTask )
         }).catch( ( error ) => {
             console.log( 'Error : ' , error )
-        })
+        })*/
