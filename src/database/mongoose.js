@@ -12,7 +12,7 @@ const configMongoose = {
 
 mongoose.connect( dataBase , configMongoose )
 
-const modelUser = {
+/*const modelUser = {
     name : {
         type : String,
         required : true,
@@ -29,6 +29,18 @@ const modelUser = {
             }
         }
     },
+    password :{
+        type : String,
+        required : true,
+        minLength : 6,
+        trim : true,
+        validate( value ) {
+            if( value.toLowerCase().includes( 'password' ) ) {
+                throw new Error ( 'Password cannot contain "password"' )
+            }
+        }
+
+    },
     age : {
         type : Number,
         default : 0,
@@ -43,8 +55,10 @@ const modelUser = {
 const User = mongoose.model( 'User' , modelUser )
 
 const dataMe = {
-    name : ' Miguel            ',
-    email : 'MIGUEL@GMAIL.COM'
+    name : ' Eduardo            ',
+    email : 'Edu@gmail.com',
+    password : 'PASSword1233',
+    age : 25
 }
 
 const me = new User( dataMe )
@@ -54,24 +68,25 @@ me.save()
         console.log( me)
     }).catch( ( error ) => {
         console.log( 'Error : ' , error )
-    })
-    
-    /*mongoose.connect( dataBase , configMongoose )
+    })*/
     
     const modelTasks = {
         description : {
-            type : String
+            type : String,
+            required : true,
+            trim : true
         },
         completed : {
-            type : Boolean
+            type : Boolean,
+            required : false,
+            default : false
         }
     }
     
     const Tasks = mongoose.model( 'Tasks' , modelTasks )
     
     const dataTask = {
-        description : 'Buy ice',
-        completed : false
+        description : '       preparate docs of Miguel         '
     }
     
     const createdTask = new Tasks( dataTask )
@@ -81,4 +96,4 @@ me.save()
             console.log( createdTask )
         }).catch( ( error ) => {
             console.log( 'Error : ' , error )
-        })*/
+        })
