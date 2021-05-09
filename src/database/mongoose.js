@@ -9,7 +9,7 @@ const configMongoose = {
     useCreateIndex: true
 }
 
-const modelUser = {
+/*const modelUser = {
     name : {
         type : String
     },
@@ -34,4 +34,31 @@ me.save()
         console.log( me)
     }).catch( ( error ) => {
         console.log( 'Error : ' , error )
-    })
+    })*/
+    
+    const modelTasks = {
+        description : {
+            type : String
+        },
+        completed : {
+            type : Boolean
+        }
+    }
+    
+    mongoose.connect( dataBase , configMongoose )
+    
+    const Tasks = mongoose.model( 'Tasks' , modelTasks )
+    
+    const dataTask = {
+        description : 'Buy ice',
+        completed : false
+    }
+    
+    const createdTask = new Tasks( dataTask )
+    
+    createdTask.save()
+        .then( () => {
+            console.log( createdTask )
+        }).catch( ( error ) => {
+            console.log( 'Error : ' , error )
+        })
