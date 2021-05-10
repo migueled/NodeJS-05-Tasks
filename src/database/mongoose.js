@@ -12,18 +12,3 @@ const configMongoose = {
 }
 
 mongoose.connect( dataBase , configMongoose )
-
-/*
-    const modelTasks = {
-        description : {
-            type : String,
-            required : true,
-            trim : true
-        },
-        completed : {
-            type : Boolean,
-            required : false,
-            default : false
-        }
-    }
-*/

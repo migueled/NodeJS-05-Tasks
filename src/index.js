@@ -2,6 +2,7 @@ const express = require( 'express' )
 /*****/
 require( './database/mongoose')
 const User = require( './models/user' )
+const Task = require( './models/task')
 /*****/
 const app = express()
 const port = 3000
@@ -14,6 +15,17 @@ app.post( '/users' , ( req , res ) => {
     newUser.save()
         .then( () => {
             res.status( 201 ).send( newUser )
+        }).catch( ( error ) => {
+            console.log( error )
+            res.status( 400 ).send( error )
+        })
+})
+
+app.post( '/tasks' , ( req , res ) => {
+    const newTask = new Task( req.body )
+    newTask.save()
+        .then( () => {
+            res.status( 201 ).send( newTask )
         }).catch( ( error ) => {
             console.log( error )
             res.status( 400 ).send( error )
