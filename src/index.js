@@ -21,6 +21,25 @@ app.post( '/users' , ( req , res ) => {
         })
 })
 
+app.get( '/users' , ( req , res ) => {
+    User.find({})
+        .then( data => res.status( 200 ).send( data ) )
+        .catch( error => res.status( 500).send( error ) )
+})
+
+app.get( '/users/:id' , ( req , res ) => {
+    const _id = req.params.id
+
+    User.findById( _id )
+        .then( user => {
+            if( !user ) {
+                return res.status( 404 ).send()
+            }
+
+            res.status( 200 ).send( user )
+        }).catch( error => res.status( 500 ).send( error ) )
+})
+
 app.post( '/tasks' , ( req , res ) => {
     const newTask = new Task( req.body )
     newTask.save()
