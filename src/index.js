@@ -54,7 +54,7 @@ app.patch( '/users/:id' , async ( req , res ) => {
     try {
         const user = await User.findByIdAndUpdate( req.params.id , req.body , { new : true , runValidators : true } )
         if( !user ) {
-            res.status( 404 ).send()
+            return res.status( 404 ).send()
         }
         res.send( user )
     } catch (error) {
@@ -91,6 +91,27 @@ app.get( '/tasks/:id' , async ( req , res ) => {
         res.status( 200 ).send( task )
     } catch (error) {
         res.status( 500 ).send( error )
+    }
+})
+
+app.patch( '/tasks/:id' , async ( req , res ) => {
+    const updates = Object.keys( req.body )
+    const allowUpdates = [ 'completed' , 'description' ]
+    const isValidOperation = updates.every( update => allowUpdates.includes( update ) )
+    if( !isValidOperation ) {
+        return res.status( 400 ).send( { error : 'Invalid updates!' } )
+    }
+    try {
+        if( req.body ) {
+            return res.status( 404 ).send()
+        }
+        const task =  await Task.findByIdAndUpdate( req.params.id , req.body  , { new : true , runValidators : true } )
+        if( !task ) {
+            return res.status( 404 ).send()
+        }
+        res.status( 200 ).send( task )
+    } catch ( error ) {
+        res.status( 400 ).send( error )
     }
 })
 /******/
