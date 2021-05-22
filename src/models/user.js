@@ -43,6 +43,13 @@ const userModel = {
 
 const UserSchema = new mongoose.Schema( userModel )
 
+UserSchema.pre( 'save' , async function ( next ) { // nombre del evento a ejecutar seguido de una funcion normal
+    //nunca arrow function
+    const user = this
+
+    next()//Obligatorio para salir de esta funcion
+})
+
 const User = mongoose.model( 'Users' , UserSchema )
 
 module.exports = User
