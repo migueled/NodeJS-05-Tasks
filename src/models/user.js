@@ -46,7 +46,7 @@ const UserSchema = new mongoose.Schema( userModel )
 UserSchema.pre( 'save' , async function ( next ) { // nombre del evento a ejecutar seguido de una funcion normal
     //nunca arrow function
     const user = this
-
+    console.log( 'Just before saving!' )
     next()//Obligatorio para salir de esta funcion
 })
 
