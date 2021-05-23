@@ -13,14 +13,14 @@ const modelTasks = {
     }
 }
 
-const TaskSchema = new mongoose.Schema( modelTasks )
+/*const TaskSchema = new mongoose.Schema( modelTasks )
 
 TaskSchema.pre( 'save' , async function( next ) {
     const task = this
     console.log('success')
     next()
-})
+})*/
 
-const Task = mongoose.model( 'Tasks' , TaskSchema )
+const Task = mongoose.model( 'Tasks' , modelTasks )
 
 module.exports = Task
