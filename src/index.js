@@ -7,6 +7,14 @@ const taskRouter = require( './routers/task' )
 const app = express()
 const port = 3000
 /*****/
+app.use( ( req , res , next ) => {
+    if( req.method === 'GET' ) {
+        res.send( 'GET requests are disabled' )
+    } else {
+        next()
+    }
+})
+/*****/
 app.use( express.json() )//For parsing application/JSON
 app.use( userRouter )
 app.use( taskRouter )

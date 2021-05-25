@@ -6,7 +6,7 @@ const User = require( '../models/user' )
 router.post( '/users' , async ( req , res ) => {
     const newUser = new User( req.body )
     try {
-        const user = await newUser.save()
+        await newUser.save()
         const token = await user.generateAuthToken()
 
         res.status( 201 ).send( { user , token } )
