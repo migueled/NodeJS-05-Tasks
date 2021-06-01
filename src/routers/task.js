@@ -41,7 +41,7 @@ router.get( '/tasks/:id' , auth , async ( req , res ) => {
     }
 })
 
-router.patch( '/tasks/:id' , async ( req , res ) => {
+router.patch( '/tasks/:id' , auth , async ( req , res ) => {
     const updates = Object.keys( req.body )
     const allowUpdates = [ 'completed' , 'description' ]
     const isValidOperation = updates.every( update => allowUpdates.includes( update ) )
@@ -55,12 +55,15 @@ router.patch( '/tasks/:id' , async ( req , res ) => {
             return res.status( 404 ).send({})
         }
 
-        const task = await Task.findById( req.params.id )
-        updates.forEach( update => task[update] = req.body[update] )
-        await task.save()
+        const task = await Task.findOne({ _id : req.params.id , owner : req.user._id })
+
         if( !task ) {
             return res.status( 404 ).send()
         }
+
+        updates.forEach( update => task[update] = req.body[update] )
+        await task.save()
+
         res.status( 200 ).send( task )
     } catch ( error ) {
         res.status( 500 ).send( error )
