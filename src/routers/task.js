@@ -17,11 +17,15 @@ router.post( '/tasks' , auth , async ( req , res ) => {
     }
 })
 
+//GET /tasks?completed=true
 router.get( '/tasks' , auth , async ( req , res ) => {
     try {
-        //const tasks = await Task.find({ owner : req.user._id })
-        //res.status( 200 ).send( tasks )
-        await req.user.populate('tasks').execPopulate()
+        await req.user.populate({
+            path : 'tasks',
+            match : {
+                completed : false
+            }
+        }).execPopulate()
         res.status( 200 ).send( req.user.tasks )
     } catch (error) {
         res.status( 500 ).send( error )
