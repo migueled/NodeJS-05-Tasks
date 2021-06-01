@@ -5,9 +5,9 @@ const User = require( '../models/user' )
 const auth = require( '../middleware/auth')
 
 router.post( '/users' , async ( req , res ) => {
-    const newUser = new User( req.body )
+    const user = new User( req.body )
     try {
-        await newUser.save()
+        await user.save()
         const token = await user.generateAuthToken()
 
         res.status( 201 ).send( { user , token } )
