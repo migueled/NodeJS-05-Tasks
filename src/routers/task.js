@@ -70,9 +70,9 @@ router.patch( '/tasks/:id' , auth , async ( req , res ) => {
     }
 })
 
-router.delete( '/tasks/:id' , async ( req , res ) => {
+router.delete( '/tasks/:id' , auth , async ( req , res ) => {
     try {
-        const taskDelete = await Task.findByIdAndDelete( req.params.id )
+        const taskDelete = await Task.findOneAndDelete({ _id : req.params.id , owner : req.user._id })
         if( !taskDelete ) {
             return res.status( 404 ).send( {} )
         }
