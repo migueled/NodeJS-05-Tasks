@@ -30,7 +30,8 @@ router.get( '/tasks' , auth , async ( req , res ) => {
             path : 'tasks',
             match,
             options : {
-                limit : parseInt( req.query.limit )
+                limit : parseInt( req.query.limit ),
+                skip : parseInt( req.query.skip )
             }
         }).execPopulate()
 
