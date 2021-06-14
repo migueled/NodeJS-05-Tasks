@@ -6,10 +6,19 @@ const taskRouter = require( './routers/task' )
 /*****/
 const app = express()
 const port = 3000
-/**MULTER**/
+//Multer
 const multer = require( 'multer' )
 const upload = multer({
-    dest : 'images'
+    dest : 'images',
+    limits : {
+        fileSize : 1000000//Byts
+    },
+    fileFilter( req , file , cb ) {
+        if( !file.originalname.endsWith( '.pdf' ) ) {
+            return cb( new Error( 'Please upload a PDF' ) )
+        }
+        cb( undefined , true )
+    }
 })
 
 app.post( '/upload' , upload.single( 'upload' ) , ( req , res ) => {
