@@ -103,9 +103,22 @@ router.post( '/users/me/avatar' , auth , upload.single( 'avatar' ) , async ( req
 })
 
 router.delete( '/users/me/avatar' , auth , async ( req , res ) => {
-        req.user.avatar = undefined
-        await req.user.save()
-        res.send( req.user )
+    req.user.avatar = undefined
+    await req.user.save()
+    res.send( req.user )
 })
 
+router.get( '/users/:id/avatar' , async ( req , res ) => {
+    try {
+        const user = await User.findById( req.params.id )
+        if( !user || !user.avatar ) {
+            throw new Error()
+        }
+
+        res.set( 'Content-type' , 'image/jpg' )
+        res.send( user.avatar )
+    } catch (error) {
+        res.status( 404 ).send( error )
+    }
+})
 module.exports = router
